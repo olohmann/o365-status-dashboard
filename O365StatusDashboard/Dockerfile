@@ -16,12 +16,15 @@ COPY --from=build-env /app/out .
 ENV ASPNETCORE_URLS=http://+:8080
 
 # Env Variables required at run time.
-ENV ApplicationInsights__InstrumentationKey="00000000-0000-0000-0000-000000000000"
-ENV ServiceHealthApiConfiguration__TenantHost="contoso.onmicrosoft.com"
-ENV ServiceHealthApiConfiguration__TenantId="00000000-0000-0000-0000-000000000000"
-ENV ServiceHealthApiConfiguration__ClientId="00000000-0000-0000-0000-000000000000"
-ENV ServiceHealthApiConfiguration__ClientSecret="00000000-0000-0000-0000-000000000000"
+ENV ApplicationInsights__InstrumentationKey=00000000-0000-0000-0000-000000000000
+ENV ServiceHealthApiConfiguration__TenantHost=contoso.onmicrosoft.com
+ENV ServiceHealthApiConfiguration__TenantId=00000000-0000-0000-0000-000000000000
+ENV ServiceHealthApiConfiguration__ClientId=00000000-0000-0000-0000-000000000000
+ENV ServiceHealthApiConfiguration__ClientSecret=00000000-0000-0000-0000-000000000000
 ENV ServiceHealthApiConfiguration__CacheDurationInSeconds=60
+ENV CompanyConfiguration__CompanyName=Contoso
+ENV CompanyConfiguration__SupportEmail=support@contoso.com
+ENV CompanyConfiguration__SupportPhone="+1 000-000-000"
 
 # ... and run as non-root user.
 RUN chown -R www-data:www-data /app

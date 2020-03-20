@@ -1,3 +1,5 @@
+env.list
+
 config.tfvars
 appsettings.Development.json
 

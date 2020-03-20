@@ -9,7 +9,6 @@ The status dashboard is a tiny ASP.NET Core MVC application that retrieves tenan
 [Live Demo](https://o365dashboard-e1ac.azurewebsites.net/) and screenshot:
 ![](./docs/screenshot.png "O365 Status Dashboard Screenshot")
 
-
 ## Setup
 
 ### Create AAD App Registration for Service Health API
@@ -44,16 +43,33 @@ Collect the following values for the registered AAD App and keep them in a tempo
 * Client ID also known as Application ID, e.g. 00000000-0000-0000-0000-000000000000
 * Client Secret (you just created)
 
-### Running the Web App
-Either clone and build the application yourself.
+### Running the Dashboard Web App
 
+You can either build the application from scratch, use the provided [Dockerfile](./O365StatusDashboard/Dockerfile) or run a pre-build docker image
+from [Docker Hub](https://hub.docker.com/repository/docker/olohmann/o365-status-dashboard).
+
+Here is a sample that uses the pre-built docker image:
+
+1. Create a docker `env.list` file using the configuration from the App Registration:
 ```bash
-git clone git@github.com:olohmann/o365-status-dashboard.git
-cd o365-status-dashboard
-dotnet build
-dotnet run
+ServiceHealthApiConfiguration__TenantHost=contoso.onmicrosoft.com
+ServiceHealthApiConfiguration__TenantId=00000000-0000-0000-0000-000000000000
+ServiceHealthApiConfiguration__ClientId=00000000-0000-0000-0000-000000000000
+ServiceHealthApiConfiguration__ClientSecret=00000000-0000-0000-0000-000000000000
+ServiceHealthApiConfiguration__CacheDurationInSeconds=60
+CompanyConfiguration__CompanyName=Contoso
+CompanyConfiguration__SupportEmail=support@contoso.com
+CompanyConfiguration__SupportPhone=+1 000-000-000
+
+# If you run in Azure, you can also inject and application insights instance.
+ApplicationInsights__InstrumentationKey=00000000-0000-0000-0000-000000000000
 ```
 
-### Deploying the Web App
+2. Run the docker image
+```bash
+docker run --env-file env.list -p8080:8080 olohmann/o365-status-dashboard:latest
+```
+
+### Deploying the Dashboard Wep App in Azure
 
 There is a fully functional terraform deployment in the folder [iac](./iac/). Use the [tfvars template](./iac/config_sample.tfvars) to customize the deployment.
