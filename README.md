@@ -73,3 +73,6 @@ docker run --env-file env.list -p8080:8080 olohmann/o365-status-dashboard:latest
 ### Deploying the Dashboard Wep App in Azure
 
 There is a fully functional terraform deployment in the folder [iac](./iac/). Use the [tfvars template](./iac/config_sample.tfvars) to customize the deployment.
+
+You can **limit the access** to the dashboard by configuring the [Azure App Service AAD authentication](https://docs.microsoft.com/en-us/azure/app-service/configure-authentication-provider-aad) (also part of the Terraform deployment sample). 
+By doing so, only employees of your enterprise can see the status.
