@@ -1,0 +1,17 @@
+@model O365StatusDashboard.Models.GetServicesCurrentStatus.ServiceStatus
+@{
+    ViewData["Title"] = "Detailed Service Status";
+}
+
+<h1>@Model.WorkloadDisplayName</h1>
+<h2 class="@ServiceStatusToCssClass("text", Model.Status)">@Model.StatusDisplayName</h2>
+
+@foreach (var featureStatus in @Model.FeatureStatus)
+{
+    <p>
+        <ul class="list-group">
+            <li class="list-group-item">@featureStatus.FeatureDisplayName</li>
+            <li class="list-group-item @ServiceStatusToCssClass("list-group-item", featureStatus.FeatureServiceStatus)">@featureStatus.FeatureServiceStatusDisplayName</li>
+        </ul>
+    </p>
+}

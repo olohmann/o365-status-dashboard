@@ -1,0 +1,14 @@
+prefix                              = "o365dashboard"
+location                            = "northeurope"
+app_service_plan_tier               = "PremiumV2"
+app_service_plan_size               = "P1V2"
+service_health_api_tenant_host      = "contoso.onmicrosoft.com"
+service_health_api_tenant_id        = "00000000-0000-0000-0000-000000000000"
+service_health_api_client_id        = "00000000-0000-0000-0000-000000000000"
+service_health_api_client_secret    = "00000000-0000-0000-0000-000000000000"
+service_health_api_cache_duration   = 60
+is_aad_auth_enabled                 = true
+aad_auth_client_id                  = "00000000-0000-0000-0000-000000000000"
+company_configuration_company_name  = "Fabrikam"
+company_configuration_support_email = "support@fabrikam.com"
+company_configuration_support_phone = "+1 000-000-000"

@@ -1,0 +1,38 @@
+﻿@using O365StatusDashboard.Models.GetServicesCurrentStatus
+@{
+    ViewData["Title"] = "O365 Status Dashboard";
+    @model ServiceStatus[]
+}
+
+<div class="card-deck">
+   @for (int i = 0; i < Model.Length; i++)
+   {
+       var item = Model[i];
+       <div class="card text-white @ServiceStatusToCssClass("bg", @item.Status) mb-4">
+           <div class="card-header">@item.StatusDisplayName</div>
+           <div class="card-body">
+               <h5 class="card-title">@item.WorkloadDisplayName</h5>
+               <p class="card-text">
+                 <a class="btn btn-outline-light" asp-controller="Home" asp-action="Detail" asp-route-workload="@item.Workload">Details</a>
+               </p>
+           </div>
+       </div>
+       
+       @if ((i + 1) % 2 == 0)
+       {
+           <div class="w-100 d-none d-sm-block d-md-none"><!-- wrap every 2 on sm--></div>
+       }
+       @if ((i + 1) % 3 == 0)
+       {
+           <div class="w-100 d-none d-md-block d-lg-none"><!-- wrap every 3 on md--></div>
+       }
+       @if ((i + 1) % 4 == 0)
+       {
+           <div class="w-100 d-none d-lg-block d-xl-none"><!-- wrap every 4 on lg--></div>
+       }
+       @if ((i + 1) % 5 == 0)
+       {
+           <div class="w-100 d-none d-xl-block"><!-- wrap every 5 on xl--></div>
+       }
+   }
+</div>
