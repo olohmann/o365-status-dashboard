@@ -51,12 +51,14 @@ from [Docker Hub](https://hub.docker.com/repository/docker/olohmann/o365-status-
 Here is a sample that uses the pre-built docker image:
 
 1. Create a docker `env.list` file using the configuration from the App Registration:
+
 ```bash
 ServiceHealthApiConfiguration__TenantHost=contoso.onmicrosoft.com
 ServiceHealthApiConfiguration__TenantId=00000000-0000-0000-0000-000000000000
 ServiceHealthApiConfiguration__ClientId=00000000-0000-0000-0000-000000000000
 ServiceHealthApiConfiguration__ClientSecret=00000000-0000-0000-0000-000000000000
 ServiceHealthApiConfiguration__CacheDurationInSeconds=60
+ServiceHealthApiConfiguration__WorkloadBlacklist=Lync,SwayEnterprise
 CompanyConfiguration__CompanyName=Contoso
 CompanyConfiguration__SupportEmail=support@contoso.com
 CompanyConfiguration__SupportPhone=+1 000-000-000
@@ -66,13 +68,37 @@ ApplicationInsights__InstrumentationKey=00000000-0000-0000-0000-000000000000
 ```
 
 2. Run the docker image
+
 ```bash
 docker run --env-file env.list -p8080:8080 olohmann/o365-status-dashboard:latest
 ```
+
+### Configuration Reference
+
+The following table defines the environment variable name, an example value and a brief description of the configuration option.
+
+| Variable | Sample Value  | Description  |  
+|---|---|---|
+|ServiceHealthApiConfiguration__TenantHost| contoso.onmicrosoft.com | The AAD app's tenant host name. |
+|ServiceHealthApiConfiguration__TenantId| 00000000-0000-0000-0000-000000000000   |  The AAD app's tenant ID. |
+|ServiceHealthApiConfiguration__ClientId| 00000000-0000-0000-0000-000000000000  | The AAD app's client ID. |
+|ServiceHealthApiConfiguration__ClientSecret|  00000000-0000-0000-0000-000000000000 | The AAD app's client secret. |
+|ServiceHealthApiConfiguration__CacheDurationInSeconds| 60  | Caching duration of service status health in seconds. |
+|ServiceHealthApiConfiguration__WorkloadBlacklist| Lync,SwayEnterprise  | The list of workload IDs that should NOT be visible on the dashboard. |
+|CompanyConfiguration__CompanyName| Contoso | The company's name. |
+|CompanyConfiguration__SupportEmail| support@contoso.com  | The E-Mail address of the support team. |
+|CompanyConfiguration__SupportPhone| +1 000-000-000  | A string that denotes the support phone number.  |
 
 ### Deploying the Dashboard Wep App in Azure
 
 There is a fully functional terraform deployment in the folder [iac](./iac/). Use the [tfvars template](./iac/config_sample.tfvars) to customize the deployment.
 
-You can **limit the access** to the dashboard by configuring the [Azure App Service AAD authentication](https://docs.microsoft.com/en-us/azure/app-service/configure-authentication-provider-aad) (also part of the Terraform deployment sample). 
-By doing so, only employees of your enterprise can see the status.
+### Configuring Access Control for the Dashboard when hosting in Azure
+
+You most likely would like to control the access to the application when you deploy it in Azure so only employees from your 
+company can see the status dashboard. To do so, you can leverage
+the **Azure AD login** with App Services as described in the [documentation](https://docs.microsoft.com/en-us/azure/app-service/configure-authentication-provider-aad). 
+
+If you need to fine-tune the access to the dashboard, you can configure the **Enterprise Application access** via Azure AD. This allows
+you to configure access to the dashboard only to specific users or groups and enable a self-service access request. See the 
+[documentation](https://docs.microsoft.com/en-us/azure/active-directory/manage-apps/assign-user-or-group-access-portal#configure-an-application-to-require-user-assignment) for details.

@@ -36,7 +36,7 @@ namespace O365StatusDashboard.Controllers
 
         public async Task<IActionResult> Index()
         {
-           var res = await _serviceHealthStatusService.GetCurrentStatus();
+            var res = await _serviceHealthStatusService.GetCurrentStatusBlacklisted();
             return View(res);
         }
         

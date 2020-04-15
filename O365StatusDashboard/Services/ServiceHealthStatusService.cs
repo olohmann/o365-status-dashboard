@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
@@ -37,6 +38,21 @@ namespace O365StatusDashboard.Services
         public Task<object> GetServices()
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<ServiceStatus[]> GetCurrentStatusBlacklisted()
+        {
+            var workloadBlacklist = _serviceHealthApiConfiguration.Value.WorkloadBlacklist;
+            var lst = new List<string>();
+            if (!string.IsNullOrWhiteSpace(workloadBlacklist))
+            {
+                lst = workloadBlacklist.Split(',').Select(_ => _.Trim().ToLower()).ToList();
+            }
+
+            var serviceStatusList = await GetCurrentStatus();
+            serviceStatusList = serviceStatusList.Where(_ => !lst.Contains(_.Workload.ToLower())).ToArray();
+
+            return serviceStatusList;
         }
 
         public async Task<ServiceStatus[]> GetCurrentStatus()
