@@ -84,7 +84,7 @@ The following table defines the environment variable name, an example value and 
 |ServiceHealthApiConfiguration__ClientId| 00000000-0000-0000-0000-000000000000  | The AAD app's client ID. |
 |ServiceHealthApiConfiguration__ClientSecret|  00000000-0000-0000-0000-000000000000 | The AAD app's client secret. |
 |ServiceHealthApiConfiguration__CacheDurationInSeconds| 60  | Caching duration of service status health in seconds. |
-|ServiceHealthApiConfiguration__WorkloadBlacklist| Lync,SwayEnterprise  | The list of workload IDs that should NOT be visible on the dashboard. |
+|ServiceHealthApiConfiguration__WorkloadBlacklist| Lync,SwayEnterprise  | The list of workload IDs that should NOT be visible on the dashboard. A case-insensitive, comma-separated list of workloads.|
 |CompanyConfiguration__CompanyName| Contoso | The company's name. |
 |CompanyConfiguration__SupportEmail| support@contoso.com  | The E-Mail address of the support team. |
 |CompanyConfiguration__SupportPhone| +1 000-000-000  | A string that denotes the support phone number.  |
